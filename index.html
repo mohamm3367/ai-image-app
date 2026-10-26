@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Image Studio</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    padding:20px;
+    font-family:Arial,sans-serif;
+    color:white;
+    background:linear-gradient(135deg,#101329,#30205c);
+}
+.container{
+    max-width:500px;
+    margin:30px auto;
+    padding:22px;
+    background:#ffffff12;
+    border:1px solid #ffffff25;
+    border-radius:20px;
+}
+h1{text-align:center;color:#c4b5fd}
+p{text-align:center;color:#ddd}
+textarea,select,button{
+    width:100%;
+    padding:14px;
+    margin-top:12px;
+    border-radius:10px;
+    font-size:16px;
+}
+textarea,select{
+    color:white;
+    background:#17152f;
+    border:1px solid #62549a;
+}
+textarea{height:120px;resize:vertical}
+button{
+    color:white;
+    background:linear-gradient(90deg,#7c3aed,#a855f7);
+    border:0;
+    font-weight:bold;
+}
+#status{line-height:1.7;text-align:center}
+#result img{width:100%;border-radius:12px;margin-top:15px}
+#download{
+    display:none;
+    text-align:center;
+    padding:12px;
+    background:#16803d;
+    color:white;
+    border-radius:10px;
+    margin-top:12px;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+    <h1>✨ AI Image Studio</h1>
+    <p>حوّل خيالك إلى صورة</p>
+
+    <label for="prompt">اكتب وصف الصورة:</label>
+    <textarea id="prompt" placeholder="مثال: قلعة جميلة فوق جبل وسط الغيوم..."></textarea>
+
+    <label for="style">اختر نمط الصورة:</label>
+    <select id="style">
+        <option value="realistic">واقعي</option>
+        <option value="anime">أنمي</option>
+        <option value="fantasy">خيالي</option>
+        <option value="digital art">رسم رقمي</option>
+        <option value="3D art">ثلاثي الأبعاد</option>
+    </select>
+
+    <button id="generate" onclick="generateImage()">🎨 إنشاء الصورة</button>
+
+    <p id="status">اكتب وصفًا واضغط على إنشاء الصورة.</p>
+
+    <div id="result">
+        <img id="image" alt="الصورة الناتجة" hidden>
+        <a id="download" download="ai-image.png">⬇ تحميل الصورة</a>
+    </div>
+</div>
+
+<script>
+async function generateImage(){
+    const prompt=document.getElementById('prompt').value.trim();
+    const style=document.getElementById('style').value;
+    const status=document.getElementById('status');
+    const button=document.getElementById('generate');
+    const image=document.getElementById('image');
+    const download=document.getElementById('download');
+
+    if(!prompt){
+        status.textContent='⚠️ اكتب وصف الصورة أولاً.';
+        return;
+    }
+
+    status.textContent='جارٍ تجهيز طلبك...';
+
+    /*
+      هذه الواجهة لا تولّد الصور بمفردها.
+      يجب ربطها بخدمة توليد صور حقيقية.
+    */
+
+    button.disabled=true;
+
+    try{
+        status.textContent=
+          'تم استلام الوصف: '+prompt+
+          '\nالنمط: '+style+
+          '\n\nيلزم ربط التطبيق بخدمة ذكاء اصطناعي لتوليد الصورة.';
+    }finally{
+        button.disabled=false;
+    }
+}
+</script>
+</body>
+</html>
